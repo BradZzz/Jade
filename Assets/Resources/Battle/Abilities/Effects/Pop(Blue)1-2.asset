@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pop(Blue)1-2
   m_EditorClassIdentifier: 
   jewel: 0
-  minAmt: 0
-  maxAmt: 0
+  minAmt: 1
+  maxAmt: 1
   effectPlayer: 0

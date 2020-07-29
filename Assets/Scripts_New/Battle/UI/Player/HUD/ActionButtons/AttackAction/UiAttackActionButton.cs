@@ -40,9 +40,7 @@ namespace Battle.UI.Player
       headerTxt = transform.Find("HeaderTxt").GetComponent<TextMeshProUGUI>();
       descTxt = transform.Find("DescTxt").GetComponent<TextMeshProUGUI>();
 
-      IPlayer contPlayer = GameData.Instance.RuntimeGame.Players.Find(player => player.Seat == seat);
-      IRoster pRoster = contPlayer.Roster;
-      IRuntimeMoheData moheData = pRoster.CurrentMohe();
+      IRuntimeMoheData moheData = GameData.Instance.RuntimeGame.Players.Find(player => player.Seat == seat).Roster.CurrentMohe();
 
       //check to make sure the player has enough mohe for pos
       if (moheData.Abilities.Count <= pos)
@@ -73,7 +71,9 @@ namespace Battle.UI.Player
 
     public void OnClick()
     {
-      if (ability != null && ability.AbilityCharged() && GameData.Instance.RuntimeGame.TurnLogic.IsMyTurn(contPlayer))
+      IPlayer thisPlayer = GameData.Instance.RuntimeGame.Players.Find(player => player.Seat == seat);
+      Debug.Log(thisPlayer);
+      if (ability != null && ability.AbilityCharged() && GameData.Instance.RuntimeGame.TurnLogic.IsMyTurn(thisPlayer))
       {
         GameEvents.Instance.Notify<ISelectAtkActionButton>(i => i.OnSelectAtkActionButton(seat, ability.Ability.AbilityID));
       }
